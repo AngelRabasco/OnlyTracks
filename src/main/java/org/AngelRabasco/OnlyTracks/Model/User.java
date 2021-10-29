@@ -1,20 +1,25 @@
 package org.AngelRabasco.OnlyTracks.Model;
 
+import java.util.List;
+
 public class User {
-	private Integer id;
-	private String username;
-	private String email;
-	private String profilePicture;
+	protected Integer id;
+	protected String username;
+	protected String email;
+	protected String profilePicture;
+	protected List<Playlist> playlists;
 
 	public User() {
 
 	}
 
-	public User(Integer id, String username, String email, String profilePicture) {
+	public User(Integer id, String username, String email, String profilePicture, List<Playlist> playlists) {
+		super();
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.profilePicture = profilePicture;
+		this.playlists = playlists;
 	}
 
 	public Integer getId() {
@@ -43,5 +48,12 @@ public class User {
 	}
 	public void setProfilePicture(String profilePicture) {
 		this.profilePicture = profilePicture;
+	}
+
+	public List<Playlist> getPlaylists() {
+		return playlists;
+	}
+	public void setPlaylists(List<Playlist> playlists) {
+		this.playlists = playlists;
 	}
 }

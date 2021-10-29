@@ -3,13 +3,13 @@ package org.AngelRabasco.OnlyTracks.Model;
 import java.util.List;
 
 public class Track {
-	private Integer id;
-	private String name;
-	private Integer length;
-	private Album album;
-	private Genre genre;
-	private Integer reproductions;
-	private List<Playlist> playlistList;
+	protected Integer id;
+	protected String name;
+	protected Integer length;
+	protected Album album;
+	protected Genre genre;
+	protected Integer reproductions;
+	protected List<Playlist> playlistList;
 
 	public Track() {
 

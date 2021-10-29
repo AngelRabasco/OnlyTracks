@@ -3,12 +3,12 @@ package org.AngelRabasco.OnlyTracks.Model;
 import java.time.LocalDate;
 
 public class Album {
-	private Integer id;
-	private String name;
-	private Author author;
-	private LocalDate releaseDate;
-	private String photo;
-	private Integer reproductions;
+	protected Integer id;
+	protected String name;
+	protected Author author;
+	protected LocalDate releaseDate;
+	protected String photo;
+	protected Integer reproductions;
 
 	public Album() {
 

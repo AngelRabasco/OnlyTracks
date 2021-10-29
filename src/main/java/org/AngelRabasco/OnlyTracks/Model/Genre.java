@@ -1,8 +1,8 @@
 package org.AngelRabasco.OnlyTracks.Model;
 
 public class Genre {
-	private Integer id;
-	private String name;
+	protected Integer id;
+	protected String name;
 
 	public Genre() {
 

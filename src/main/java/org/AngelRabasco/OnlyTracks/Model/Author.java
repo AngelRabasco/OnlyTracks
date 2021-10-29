@@ -1,10 +1,10 @@
 package org.AngelRabasco.OnlyTracks.Model;
 
 public class Author {
-	private Integer id;
-	private String name;
-	private String nationality;
-	private String photo;
+	protected Integer id;
+	protected String name;
+	protected String nationality;
+	protected String photo;
 
 	public Author() {
 
