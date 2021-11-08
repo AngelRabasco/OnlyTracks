@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connection>
+	<server>jdbc:mysql://127.0.0.1</server>
+    <database>onlytracks</database>
+    <user>root</user>
+    <password></password>
+</connection>
