@@ -13,9 +13,15 @@ public class Album {
 	public Album() {
 
 	}
-
 	public Album(Integer id, String name, Author author, LocalDate releaseDate, String photo, Integer reproductions) {
 		this.id = id;
+		this.name = name;
+		this.author = author;
+		this.releaseDate = releaseDate;
+		this.photo = photo;
+		this.reproductions = reproductions;
+	}
+	public Album(String name, Author author, LocalDate releaseDate, String photo, Integer reproductions) {
 		this.name = name;
 		this.author = author;
 		this.releaseDate = releaseDate;

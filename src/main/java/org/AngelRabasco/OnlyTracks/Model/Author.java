@@ -9,9 +9,13 @@ public class Author {
 	public Author() {
 
 	}
-
 	public Author(Integer id, String name, String nationality, String photo) {
 		this.id = id;
+		this.name = name;
+		this.nationality = nationality;
+		this.photo = photo;
+	}
+	public Author(String name, String nationality, String photo) {
 		this.name = name;
 		this.nationality = nationality;
 		this.photo = photo;

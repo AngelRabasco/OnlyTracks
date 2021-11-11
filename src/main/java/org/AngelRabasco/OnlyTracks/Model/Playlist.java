@@ -10,10 +10,14 @@ public class Playlist {
 	protected List<Track> trackList;
 	protected List<User> subscribers;
 
+	@Override
+	public String toString() {
+		return "Playlist [id=" + id + ", name=" + name + ", description=" + description + ", owner=" + owner
+				+ ", trackList=" + trackList + ", subscribers=" + subscribers + "]";
+	}
 	public Playlist() {
 
 	}
-
 	public Playlist(Integer id, String name, String description, User owner, List<Track> trackList, List<User> subscribers) {
 		this.id = id;
 		this.name = name;
@@ -21,6 +25,24 @@ public class Playlist {
 		this.owner = owner;
 		this.trackList = trackList;
 		this.subscribers = subscribers;
+	}
+	public Playlist(Integer id, String name, String description, User owner) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.owner = owner;
+	}
+	public Playlist(String name, String description, User owner, List<Track> trackList, List<User> subscribers) {
+		this.name = name;
+		this.description = description;
+		this.owner = owner;
+		this.trackList = trackList;
+		this.subscribers = subscribers;
+	}
+	public Playlist(String name, String description, User owner) {
+		this.name = name;
+		this.description = description;
+		this.owner = owner;
 	}
 
 	public Integer getId() {

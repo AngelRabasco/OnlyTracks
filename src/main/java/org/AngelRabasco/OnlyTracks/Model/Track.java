@@ -14,7 +14,6 @@ public class Track {
 	public Track() {
 
 	}
-
 	public Track(Integer id, String name, Integer length, Album album, Genre genre, Integer reproductions, List<Playlist> playlistList) {
 		this.id = id;
 		this.name = name;
@@ -23,6 +22,29 @@ public class Track {
 		this.genre = genre;
 		this.reproductions = reproductions;
 		this.playlistList = playlistList;
+	}
+	public Track(Integer id, String name, Integer length, Album album, Genre genre, Integer reproductions) {
+		this.id = id;
+		this.name = name;
+		this.length = length;
+		this.album = album;
+		this.genre = genre;
+		this.reproductions = reproductions;
+	}
+	public Track(String name, Integer length, Album album, Genre genre, Integer reproductions, List<Playlist> playlistList) {
+		this.name = name;
+		this.length = length;
+		this.album = album;
+		this.genre = genre;
+		this.reproductions = reproductions;
+		this.playlistList = playlistList;
+	}
+	public Track(String name, Integer length, Album album, Genre genre, Integer reproductions) {
+		this.name = name;
+		this.length = length;
+		this.album = album;
+		this.genre = genre;
+		this.reproductions = reproductions;
 	}
 
 	public Integer getId() {

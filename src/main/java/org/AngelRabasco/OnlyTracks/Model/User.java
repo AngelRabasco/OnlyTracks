@@ -6,20 +6,40 @@ public class User {
 	protected Integer id;
 	protected String username;
 	protected String email;
+	protected String password;
 	protected String profilePicture;
 	protected List<Playlist> playlists;
 
 	public User() {
 
 	}
-
-	public User(Integer id, String username, String email, String profilePicture, List<Playlist> playlists) {
-		super();
+	public User(Integer id, String username, String email, String password, String profilePicture, List<Playlist> playlists) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
+		this.password = password;
 		this.profilePicture = profilePicture;
 		this.playlists = playlists;
+	}
+	public User(Integer id, String username, String email, String password, String profilePicture) {
+		this.id = id;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.profilePicture = profilePicture;
+	}
+	public User(String username, String email, String password, String profilePicture, List<Playlist> playlists) {
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.profilePicture = profilePicture;
+		this.playlists = playlists;
+	}
+	public User(String username, String email, String password, String profilePicture) {
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.profilePicture = profilePicture;
 	}
 
 	public Integer getId() {
@@ -41,6 +61,13 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getProfilePicture() {
