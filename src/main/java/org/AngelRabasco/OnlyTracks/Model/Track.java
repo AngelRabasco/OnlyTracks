@@ -11,6 +11,11 @@ public class Track {
 	protected Integer reproductions;
 	protected List<Playlist> playlistList;
 
+	@Override
+	public String toString() {
+		return "Track [id=" + id + ", name=" + name + ", length=" + length + ", album=" + album + ", genre=" + genre
+				+ ", reproductions=" + reproductions + ", playlistList=" + playlistList + "]";
+	}
 	public Track() {
 
 	}

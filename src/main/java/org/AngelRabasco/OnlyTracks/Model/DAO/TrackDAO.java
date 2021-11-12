@@ -4,17 +4,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.AngelRabasco.OnlyTracks.Model.Album;
 import org.AngelRabasco.OnlyTracks.Model.Genre;
 import org.AngelRabasco.OnlyTracks.Model.Playlist;
 import org.AngelRabasco.OnlyTracks.Model.Track;
+import org.AngelRabasco.OnlyTracks.Model.User;
 import org.AngelRabasco.OnlyTracks.Util.Connect;
 
 public class TrackDAO extends Track {
 	private final static String getById = "SELECT * FROM tracks WHERE id=?";
 	private final static String insertUpdate = "INSERT INTO tracks (id,name,length,albumId,genreId,reproductions) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE name=?,length=?,albumId=?,genreId=?,reproductions=?";
+	private final static String getPlaylistsById = "SELECT playlists.id,playlists.name,playlists.description,playlists.owner FROM playlists JOIN tracks_playlists ON tracks_playlists.idPlaylist=playlists.id WHERE tracks_playlists.idTrack=?";
 	private final static String delete="DELETE FROM tracks WHERE id=?";
 	
 	public TrackDAO() {
@@ -33,14 +36,14 @@ public class TrackDAO extends Track {
 		super(name, length, album, genre, reproductions);
 	}
 
-	public static Track searchByID(Integer ID) {
+	public static Track searchById(Integer id) {
 //		Devuelve el autor cuya ID coincida con la ID itroducida
 		Track queryResult = new Track();
 		Connection con = Connect.getConnection();
 		if (con != null) {
 			try {
 				PreparedStatement query = con.prepareStatement(getById);
-				query.setInt(1, ID);
+				query.setInt(1, id);
 				ResultSet rs = query.executeQuery();
 				if (rs.next()) {
 					queryResult=(new Track(rs.getInt("id"),
@@ -50,6 +53,27 @@ public class TrackDAO extends Track {
 							new GenreDAO(/*GenreDAO.searchByID(rs.getInt("id"))*/),
 							rs.getInt("reproductions")/*,
 							new ArrayList<Playlist>()*/));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return queryResult;
+	}
+	
+	public static List<Playlist> searchPlaylistsById(Integer id) {
+		List<Playlist> queryResult = new ArrayList<Playlist>();
+		Connection con = Connect.getConnection();
+		if (con != null) {
+			try {
+				PreparedStatement query = con.prepareStatement(getPlaylistsById);
+				query.setInt(1, id);
+				ResultSet rs = query.executeQuery();
+				while (rs.next()) {
+					queryResult.add(new Playlist(rs.getInt("id"),
+							rs.getString("name"),
+							rs.getString("description"),
+							new User()));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

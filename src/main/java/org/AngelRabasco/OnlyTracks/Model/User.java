@@ -10,6 +10,11 @@ public class User {
 	protected String profilePicture;
 	protected List<Playlist> playlists;
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password
+				+ ", profilePicture=" + profilePicture + ", playlists=" + playlists + "]";
+	}
 	public User() {
 
 	}
@@ -26,6 +31,12 @@ public class User {
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.profilePicture = profilePicture;
+	}
+	public User(Integer id, String username, String email, String profilePicture) {
+		this.id = id;
+		this.username = username;
+		this.email = email;
 		this.profilePicture = profilePicture;
 	}
 	public User(String username, String email, String password, String profilePicture, List<Playlist> playlists) {
