@@ -48,6 +48,7 @@ public class GenreDAO extends Genre {
 	}
 
 	public Integer saveGenre() {
+//		Almacena el género en la base de datos o actualiza el nombre en caso de repetición
 		Integer result = 0;
 		Connection con = Connect.getConnection();
 		if (con != null) {
@@ -69,6 +70,7 @@ public class GenreDAO extends Genre {
 	}
 	
 	public int removeGenre() {
+//		Elimina el género de la base de datos
 		int result = 0;
 		Connection con = Connect.getConnection();
 		if (con != null) {

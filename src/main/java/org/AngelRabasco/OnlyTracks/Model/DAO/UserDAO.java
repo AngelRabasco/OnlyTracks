@@ -4,17 +4,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.AngelRabasco.OnlyTracks.Model.Playlist;
 import org.AngelRabasco.OnlyTracks.Model.User;
 import org.AngelRabasco.OnlyTracks.Util.Connect;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class UserDAO extends User {
 	private final static String getById = "SELECT * FROM users WHERE id=?";
 	private final static String getSubscriptionsById = "SELECT playlists.id,playlists.name,playlists.description,playlists.owner FROM playlists JOIN users_playlists ON users_playlists.idPlaylist=playlists.id WHERE users_playlists.idUser=?";
-	private final static String insertUpdate = "INSERT INTO users (id,username,email,password,profilePicture) VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE username=?,email=?,profilePicture=?";
+	private final static String getLoginCredentials="SELECT id,username,email,password,profilePicture FROM users WHERE username LIKE ?";
+	private final static String insertUpdate = "INSERT INTO users (id,username,email,password,profilePicture) VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE username=?,email=?,password=?";
 	private final static String delete = "DELETE FROM users WHERE id=?";
 	
 	public UserDAO() {
@@ -34,14 +37,20 @@ public class UserDAO extends User {
 	public UserDAO(Integer id, String username, String email, String password, String profilePicture) {
 		super(id, username, email, password, profilePicture);
 	}
-	public UserDAO(Integer id, String username, String email, String profilePicture) {
-		super(id, username, email, profilePicture);
+	public UserDAO(Integer id, String username, String email, String password) {
+		super(id, username, email, password);
 	}
 	public UserDAO(String username, String email, String password, String profilePicture, List<Playlist> playlists) {
 		super(username, email, password, profilePicture, playlists);
 	}
 	public UserDAO(String username, String email, String password, String profilePicture) {
 		super(username, email, password, profilePicture);
+	}
+	public UserDAO(String username, String email, String password) {
+		super(username, email, password);
+	}
+	public UserDAO(String username, String password) {
+		super(username, password);
 	}
 
 	public static User searchByID(Integer ID) {
@@ -57,7 +66,7 @@ public class UserDAO extends User {
 					queryResult = (new User(rs.getInt("id"),
 							rs.getString("username"),
 							rs.getString("email"),
-							rs.getString("password"),
+							null,
 							rs.getString("profilePicture")/*,
 							new ArrayList<Playlist>()*/));
 				}
@@ -68,7 +77,55 @@ public class UserDAO extends User {
 		return queryResult;
 	}
 	
+	public Boolean logIn() {
+//		Comprueba que haya un usuario con el mismo nombre y contraseña
+		Boolean result = false;
+		Connection con = Connect.getConnection();
+		if (con != null) {
+			try {
+				PreparedStatement query = con.prepareStatement(getLoginCredentials);
+				query.setString(1, this.username);
+				ResultSet rs = query.executeQuery();
+				if (rs.next()) {
+					if (new BCryptPasswordEncoder().matches(this.password, rs.getString("password"))) {
+						this.id = rs.getInt("id");
+						this.username = rs.getString("username");
+						this.email = rs.getString("email");
+						this.password = null;
+						this.profilePicture = rs.getString("profilePicture");
+						this.playlists = searchSubscriptionsById(this.id);
+						result = true;
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	public Boolean signUp() {
+//		Comprueba que no exista un usuario y lo registra
+		Boolean result = false;
+		Connection con = Connect.getConnection();
+		if (con != null) {
+			try {
+				PreparedStatement query = con.prepareStatement(getLoginCredentials);
+				query.setString(1, this.username);
+				ResultSet rs = query.executeQuery();
+				if (!rs.next()) {
+					this.id = new UserDAO(this.username, this.email, new BCryptPasswordEncoder().encode(this.password)).saveUser();
+					result = true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
 	public static List<Playlist> searchSubscriptionsById(Integer id){
+//		Devuelve las playlists a las que está suscrito el usuario
 		List<Playlist> queryResult= new ArrayList<Playlist>();
 		Connection con = Connect.getConnection();
 		if (con != null) {
@@ -80,7 +137,7 @@ public class UserDAO extends User {
 					queryResult.add(new Playlist(rs.getInt("id"),
 							rs.getString("name"),
 							rs.getString("description"),
-							new User()));
+							UserDAO.searchByID(rs.getInt("owner"))));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -90,11 +147,12 @@ public class UserDAO extends User {
 	}
 	
 	public Integer saveUser() {
+//		Guarda el usuario o actualiza su información
 		Integer result = 0;
 		Connection con = Connect.getConnection();
 		if (con != null) {
 			try {
-				PreparedStatement query = con.prepareStatement(insertUpdate);
+				PreparedStatement query = con.prepareStatement(insertUpdate, Statement.RETURN_GENERATED_KEYS);
 				try {
 					query.setInt(1, this.id);
 				} catch (NullPointerException e) {
@@ -106,8 +164,12 @@ public class UserDAO extends User {
 				query.setString(5, this.profilePicture);
 				query.setString(6, this.username);
 				query.setString(7, this.email);
-				query.setString(8, this.profilePicture);
-				result = query.executeUpdate();
+				query.setString(8, this.password);
+				query.executeUpdate();
+				ResultSet generatedKeys = query.getGeneratedKeys();
+				if (generatedKeys.next()) {
+					result = generatedKeys.getInt(1);
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -115,7 +177,8 @@ public class UserDAO extends User {
 		return result;
 	}
 	
-	public int removeTrack() {
+	public Integer removeUser() {
+//		Elimina al usuario de la base de datos
 		int result = 0;
 		Connection con = Connect.getConnection();
 		if (con != null) {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.AngelRabasco.OnlyTracks.PlaylistEditorController">
+   <children>
+      <TableView fx:id="trackTable" prefHeight="345.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="trackName" prefWidth="193.0" text="Name" />
+          <TableColumn fx:id="trackAlbum" prefWidth="162.0" text="Album" />
+            <TableColumn fx:id="trackGenre" prefWidth="112.0" text="Genre" />
+            <TableColumn fx:id="trackLength" prefWidth="44.0" text="Length" />
+            <TableColumn fx:id="trackReproductions" prefWidth="87.0" text="Reproductions" />
+        </columns>
+      </TableView>
+      <Button fx:id="addButton" layoutX="548.0" layoutY="361.0" mnemonicParsing="false" onAction="#addTrack" text="Add" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+      <Button fx:id="exitButton" layoutX="505.0" layoutY="361.0" mnemonicParsing="false" onAction="#closeWindow" text="Exit" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="60.0" />
+   </children>
+</AnchorPane>

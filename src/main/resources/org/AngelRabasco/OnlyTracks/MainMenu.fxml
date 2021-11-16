@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.AngelRabasco.OnlyTracks.MainMenuController">
+   <children>
+      <HBox fx:id="userBox" onMouseClicked="#loadUserEditor" prefHeight="56.0" prefWidth="260.0" AnchorPane.bottomAnchor="664.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fx:id="userImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+               </HBox.margin>
+            </ImageView>
+            <Text fx:id="userField" strokeType="OUTSIDE" strokeWidth="0.0">
+               <HBox.margin>
+                  <Insets left="3.0" top="20.0" />
+               </HBox.margin>
+            </Text>
+         </children>
+      </HBox>
+      <Text layoutX="95.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your playlists" />
+      <ListView fx:id="playlistList" fixedCellSize="0.0" layoutY="78.0" onMouseClicked="#loadPlaylistTracks" prefHeight="617.0" prefWidth="260.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1020.0" AnchorPane.topAnchor="78.0" />
+      <Button fx:id="addButton" defaultButton="true" layoutX="139.0" layoutY="694.0" mnemonicParsing="false" onAction="#loadPlaylistCreator" prefHeight="25.0" prefWidth="125.0" text="Add" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="1020.0" AnchorPane.topAnchor="695.0" />
+      <Button fx:id="removeButton" layoutX="14.0" layoutY="694.0" mnemonicParsing="false" onAction="#removePlaylist" prefHeight="25.0" prefWidth="125.0" text="Remove" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1155.0" AnchorPane.topAnchor="695.0" />
+      <TabPane fx:id="tabPane" layoutX="260.0" prefHeight="564.0" prefWidth="1020.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="156.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Tracks">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tracksTable" onMouseClicked="#loadPlayer" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="tracksName" prefWidth="240.0" text="Name" />
+                            <TableColumn fx:id="tracksAlbum" prefWidth="395.0" text="Album" />
+                              <TableColumn fx:id="tracksGenre" prefWidth="211.0" text="Genre" />
+                              <TableColumn fx:id="tracksLength" prefWidth="85.0" text="Length" />
+                              <TableColumn fx:id="tracksReproductions" prefWidth="87.0" text="Reproductions" />
+                          </columns>
+                        </TableView>
+                     </children></AnchorPane>
+               </content>
+          </Tab>
+          <Tab text="User Playlists">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="userPlaylistTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="userPlaylistOwner" prefWidth="128.0" text="User" />
+                            <TableColumn fx:id="userPlaylistName" prefWidth="226.0" text="Name" />
+                              <TableColumn fx:id="userPlaylistDescription" prefWidth="664.0" text="Description" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="subscribeButton" layoutX="946.0" layoutY="504.0" mnemonicParsing="false" onAction="#subscribe" text="Subscribe" AnchorPane.rightAnchor="6.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+          </Tab>
+            <Tab fx:id="playlistTracks" disable="true" text="PlaylistContentTab">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="playlistTracksTable" onMouseClicked="#loadPlayer" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columns>
+                              <TableColumn fx:id="playlistTracksName" prefWidth="240.0" text="Name" />
+                              <TableColumn fx:id="playlistTracksAlbum" prefWidth="395.0" text="Album" />
+                              <TableColumn fx:id="playlistTracksGenre" prefWidth="211.0" text="Genre" />
+                              <TableColumn fx:id="playlistTracksLength" prefWidth="85.0" text="Length" />
+                              <TableColumn fx:id="playlistTracksReproductions" prefWidth="87.0" text="Reproductions" />
+                           </columns>
+                        </TableView>
+                        <Button fx:id="addTrackButton" disable="true" layoutX="946.0" layoutY="504.0" mnemonicParsing="false" onAction="#addToPlaylist" text="Add track" AnchorPane.rightAnchor="6.0" />
+                        <Button fx:id="removeTrackButton" disable="true" layoutX="888.0" layoutY="504.0" mnemonicParsing="false" onAction="#removeFromPlaylist" text="Remove track" AnchorPane.rightAnchor="80.0" />
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="261.0" layoutY="569.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="1.0" />
+      <Text fx:id="trackName" layoutX="418.0" layoutY="649.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="1137.0" layoutY="588.0" onMouseClicked="#play" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/play-button.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

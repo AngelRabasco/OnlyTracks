@@ -52,6 +52,7 @@ public class AuthorDAO extends Author {
 	}
 	
 	public Integer saveAuthor() {
+//		Registra al autor en la base de datos o lo actualiza en caso de estar repetido
 		Integer result = 0;
 		Connection con = Connect.getConnection();
 		if (con != null) {
@@ -77,6 +78,7 @@ public class AuthorDAO extends Author {
 	}
 	
 	public int removeAuthor() {
+//		Elimina el autor de la base de datos
 		int result = 0;
 		Connection con = Connect.getConnection();
 		if (con != null) {

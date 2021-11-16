@@ -36,7 +36,6 @@ public class XMLReader {
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		}
-		System.out.println(url);
 		return url;
 	}
 }

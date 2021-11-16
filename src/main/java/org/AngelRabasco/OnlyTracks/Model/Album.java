@@ -70,4 +70,9 @@ public class Album {
 	public void setReproductions(Integer reproductions) {
 		this.reproductions = reproductions;
 	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 }

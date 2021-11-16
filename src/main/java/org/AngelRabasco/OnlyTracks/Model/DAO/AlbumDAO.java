@@ -59,6 +59,7 @@ public class AlbumDAO extends Album {
 	}
 
 	public Integer saveAlbum() {
+//		Guarda el album en la base de datos, y en caso de estar repetida actualiza los campos
 		Integer result = 0;
 		Connection con = Connect.getConnection();
 		if (con != null) {
@@ -88,6 +89,7 @@ public class AlbumDAO extends Album {
 	}
 	
 	public int removeAlbum() {
+//		Eliminal el album de la base de datos
 		int result = 0;
 		Connection con = Connect.getConnection();
 		if (con != null) {

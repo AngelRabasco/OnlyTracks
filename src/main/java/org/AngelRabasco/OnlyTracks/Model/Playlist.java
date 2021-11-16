@@ -10,11 +10,6 @@ public class Playlist {
 	protected List<Track> trackList;
 	protected List<User> subscribers;
 
-	@Override
-	public String toString() {
-		return "Playlist [id=" + id + ", name=" + name + ", description=" + description + ", owner=" + owner
-				+ ", trackList=" + trackList + ", subscribers=" + subscribers + "]";
-	}
 	public Playlist() {
 
 	}
@@ -85,5 +80,10 @@ public class Playlist {
 	}
 	public void setSubscribers(List<User> subscribers) {
 		this.subscribers = subscribers;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 }
